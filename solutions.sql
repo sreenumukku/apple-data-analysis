@@ -398,7 +398,7 @@ SELECT
 	SUM(total_revenue) OVER(PARTITION BY store_id ORDER BY year, month) as running_total
 FROM monthly_sales
 
--- Bonus Question
+
 -- Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
 
 SELECT 
