@@ -1,5 +1,5 @@
 
-# ![Apple Logo](https://github.com/najirh/Apple-Retail-Sales-SQL-Project---Analyzing-Millions-of-Sales-Rows/blob/main/Apple_Changsha_RetailTeamMembers_09012021_big.jpg.slideshow-xlarge_2x.jpg) Apple Retail Sales SQL Project - Analyzing Millions of Sales Rows
+# ![Apple Logo](https://github.com/sreenumukku/apple_data_analysis/blob/main/Apple_Changsha_RetailTeamMembers_09012021_big.jpg.slideshow-xlarge_2x.jpg) Apple Retail Sales SQL Project - Analyzing Millions of Sales Rows
 
 
 ## Project Overview
@@ -10,7 +10,7 @@ The project is ideal for data analysts looking to enhance their SQL skills by wo
 
 ## Entity Relationship Diagram (ERD)
 
-![ERD](https://github.com/najirh/Apple-Retail-Sales-SQL-Project---Analyzing-Millions-of-Sales-Rows/blob/main/erd.png)
+![ERD](https://github.com/sreenumukku/apple_data_analysis/blob/main/erd.png)
 
 
 ## Database Schema
