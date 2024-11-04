@@ -33,7 +33,7 @@ WHERE store_id ='ST-31'
 
 -- Business Problems
 -- Medium Problems
--- 1. Find the number of stores in each country.
+-- Find the number of stores in each country.
 
 SELECT 
 	country,
@@ -42,7 +42,7 @@ FROM stores
 GROUP BY 1
 ORDER BY 2 DESC
 
--- Q.2 Calculate the total number of units sold by each store.
+-- Calculate the total number of units sold by each store.
 
 SELECT 
 	s.store_id,
@@ -55,7 +55,7 @@ ON st.store_id = s.store_id
 GROUP BY 1, 2
 ORDER BY 3 DESC
 
--- Q.3 Identify how many sales occurred in December 2023.
+-- Identify how many sales occurred in December 2023.
 
 
 SELECT 
@@ -63,7 +63,7 @@ SELECT
 FROM sales
 WHERE TO_CHAR(sale_date, 'MM-YYYY') = '12-2023'
 
--- Q.4 Determine how many stores have never had a warranty claim filed.
+-- Determine how many stores have never had a warranty claim filed.
 
 SELECT COUNT(*) FROM stores
 WHERE store_id NOT IN (
@@ -74,21 +74,18 @@ WHERE store_id NOT IN (
 						ON s.sale_id = w.sale_id
 						);
 
--- Q.5 Calculate the percentage of warranty claims marked as "Warranty Void".
+-- Calculate the percentage of warranty claims marked as "Warranty Void".
 no claim that as wv/total claim * 100
 
 
 
 SELECT 
 	ROUND
-		(COUNT(claim_id)/
-						(SELECT COUNT(*) FROM warranty)::numeric 
-		* 100, 
-	2)as warranty_void_percentage
+		(COUNT(claim_id) / (SELECT COUNT(*) FROM warranty)::numeric * 100, 2)as warranty_void_percentage
 FROM warranty
 WHERE repair_status = 'Warranty Void'
 
--- Q.6 Identify which store had the highest total units sold in the last year.
+-- Identify which store had the highest total units sold in the last year.
 
 SELECT 
 	s.store_id,
@@ -102,14 +99,14 @@ GROUP BY 1, 2
 ORDER BY 3 DESC
 LIMIT 1
 
--- Q.7 Count the number of unique products sold in the last year.
+-- Count the number of unique products sold in the last year.
 
 SELECT 
 	COUNT(DISTINCT product_id)
 FROM sales
 WHERE sale_date >= (CURRENT_DATE - INTERVAL '1 year')
 
--- Q.8 Find the average price of products in each category.
+-- Find the average price of products in each category.
 
 SELECT 
 	p.category_id,
@@ -122,14 +119,14 @@ ON p.category_id = c.category_id
 GROUP BY 1, 2
 ORDER BY 3 DESC
 
--- Q.9 How many warranty claims were filed in 2020?
+-- How many warranty claims were filed in 2020?
 
 SELECT 
 	COUNT(*) as warranty_claim
 FROM warranty
 WHERE EXTRACT(YEAR FROM claim_date) = 2020
 
--- Q.10 For each store, identify the best-selling day based on highest quantity sold.
+-- For each store, identify the best-selling day based on highest quantity sold.
 
 -- store_id, day_name, sum(qty)
 --  window dense rank 
@@ -149,7 +146,7 @@ FROM
 WHERE rank = 1
 
 -- Medium to Hard Questions
--- Q.11 Identify the least selling product in each country for each year based on total units sold.
+-- Identify the least selling product in each country for each year based on total units sold.
 
 
 WITH product_rank
@@ -174,7 +171,7 @@ SELECT
 FROM product_rank
 WHERE rank = 1
 
--- Q.12 Calculate how many warranty claims were filed within 180 days of a product sale.
+-- Calculate how many warranty claims were filed within 180 days of a product sale.
 
 SELECT 
 	COUNT(*)
@@ -185,7 +182,7 @@ ON s.sale_id = w.sale_id
 WHERE 
 	w.claim_date - sale_date <= 180
 
---Q.13  Determine how many warranty claims were filed for products launched in the last two years.
+-- Determine how many warranty claims were filed for products launched in the last two years.
 -- each prod 
 --  no claim
 --  no sale
@@ -205,7 +202,7 @@ WHERE p.launch_date >= CURRENT_DATE - INTERVAL '2 years'
 GROUP BY 1
 HAVING COUNT(w.claim_id) > 0
 
--- Q.14 List the months in the last three years where sales exceeded 5,000 units in the USA.
+-- List the months in the last three years where sales exceeded 5,000 units in the USA.
 
 SELECT 
 	TO_CHAR(sale_date, 'MM-YYYY') as month,
@@ -222,7 +219,7 @@ GROUP BY 1
 HAVING SUM(s.quantity) > 5000
 
 
--- Q.15 Identify the product category with the most warranty claims filed in the last two years.
+-- Identify the product category with the most warranty claims filed in the last two years.
 
 SELECT 
 	c.category_name,
@@ -242,7 +239,7 @@ GROUP BY 1
 
 
 -- Complex Problems
--- Q.16 Determine the percentage chance of receiving warranty claims after each purchase for each country!
+-- Determine the percentage chance of receiving warranty claims after each purchase for each country!
 
 SELECT 
 	country,
@@ -264,7 +261,7 @@ ON w.sale_id = s.sale_id
 GROUP BY 1) t1
 ORDER BY 4 DESC
 
--- Q.17 Analyze the year-by-year growth ratio for each store.
+-- Analyze the year-by-year growth ratio for each store.
 
 -- each store and their yearly sale 
 WITH yearly_sales
@@ -310,7 +307,7 @@ WHERE
 	AND 
 	YEAR <> EXTRACT(YEAR FROM CURRENT_DATE)
 
--- Q.18 Calculate the correlation between product price and warranty claims for 
+-- Calculate the correlation between product price and warranty claims for 
 -- products sold in the last five years, segmented by price range.
 
 SELECT 
@@ -332,7 +329,7 @@ WHERE claim_date >= CURRENT_DATE - INTERVAL '5 year'
 GROUP BY 1
 
 
--- Q.19 Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed
+-- Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed
 
 
 WITH paid_repair
@@ -373,7 +370,7 @@ JOIN stores as st
 ON tr.store_id = st.store_id
 
 
--- Q.20 Write a query to calculate the monthly running total of sales for each store
+-- Write a query to calculate the monthly running total of sales for each store
 -- over the past four years and compare trends during this period.
 
 WITH monthly_sales
